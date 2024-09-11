@@ -1,0 +1,32 @@
+<section>
+  <app-on-push-child [primitiveData]="primitiveData" [nonPrimitiveData]="nonPrimitive" />
+</section>
+
+<div class="action-wrapper">
+  <button (click)="updatePrimitive()">
+    Update Primitive value
+  </button>
+  <p>primitive data will be changed inside child-component cause the reference to memory will be changed</p>
+</div>
+
+
+
+<div class="action-wrapper">
+  <button (click)="updateNonPrimitive()">
+    Mutate Non-Primitive value
+  </button>
+  <p>
+    If you mutate the object directly (without changing its reference),
+    OnPush strategy will not trigger change detection.
+  </p>
+</div>
+
+<div class="action-wrapper">
+  <button (click)="referenceChangeOfNonPrimitiveData()">
+    Reference Change of Non-Primitive value
+  </button>
+  <p>
+    If the component has input properties bound to it and those input properties are
+    updated by reference, the change detection will trigger.
+  </p>
+</div>

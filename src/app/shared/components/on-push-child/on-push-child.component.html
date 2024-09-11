@@ -1,0 +1,20 @@
+<section class="child-wrapper">
+  <p>This is child component</p>
+  <p>Primitive Data State: {{primitiveData}}</p>
+  <p>Non-primitive Data State: {{nonPrimitiveData.text}}</p>
+  <div class="action-wrapper">
+    <button (click)="updateInsideObservable()">Update inside observable</button>
+    <p>Even though the OnPush strategy is used, Angular triggers change detection
+      when observables emit new values.</p>
+  </div>
+
+  <div class="action-wrapper">
+    <button (click)="mutatePrimitiveDataWithManualTriggerOfChangeDetection()">
+      Mutating non primitive data with Manual Trigger
+    </button>
+    <p>
+      By calling markForCheck(), Angular schedules a change detection check for the component,
+      allowing it to re-render even without reference changes.
+    </p>
+  </div>
+</section>
