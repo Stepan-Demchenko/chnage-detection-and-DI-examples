@@ -27,7 +27,7 @@
       <h3>Root Component Context</h3>
       <p>The root component (AppComponent) will provide the service at the
         root level (default behavior when provided in the providers array).</p>
-      <p>{{ serviceText }}</p>
+      <p>{{ independentServiceText }}</p>
       <button (click)="show()">Show from Root</button>
     </div>
     <div class="component-wrapper">
@@ -43,6 +43,32 @@
       meaning it will inherit the instance from the Root component(AppComponent).
       <app-child />
     </div>
-
+  </section>
+  <section>
+    <h1>
+      This example demonstrates a singleton service that is
+      instantiated only once during the lifetime of the application. This single instance can be
+      shared and reused across multiple components, modules, or services within the app.
+      Singleton services are a powerful tool in Angular applications
+      for managing state, utilities, and shared functionality across components.
+    </h1>
+    <div class="component-wrapper">
+      <h3>Root Component Context</h3>
+      <p>The root component (AppComponent)</p>
+      <p>{{ singleTonServiceText }}</p>
+      <button (click)="showFromSingleTonService()">Show from Root</button>
+    </div>
+    <div class="component-wrapper">
+      <h3>Parent Component Context</h3>
+      The parent component (Parent1Component) have the same SingletonService instance like Child1Component, AppComponent
+      and any another component across application
+      <app-parent-1 />
+    </div>
+    <div class="component-wrapper">
+      <h3>Parent Component Context</h3>
+      The child component (Child1Component) have the same SingletonService instance like Parent1Component, AppComponent
+      and any another component across application
+      <app-child-1 />
+    </div>
   </section>
 </section>

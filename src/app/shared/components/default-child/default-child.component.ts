@@ -1,6 +1,7 @@
-import { Component, Input, OnDestroy } from '@angular/core';
+import { Component, DestroyRef, inject, Input } from '@angular/core';
 import { NonPrimitive } from '../../models/non-primitive';
-import { of, Subject, takeUntil, tap } from 'rxjs';
+import { of, tap } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-default-child',
@@ -9,10 +10,10 @@ import { of, Subject, takeUntil, tap } from 'rxjs';
   templateUrl: './default-child.component.html',
   styleUrl: './default-child.component.scss'
 })
-export class DefaultChildComponent implements OnDestroy {
+export class DefaultChildComponent {
   @Input({required: true}) primitiveData = '';
   @Input({required: true}) nonPrimitiveData!: NonPrimitive;
-  private readonly unsubscribe = new Subject<unknown>();
+  private readonly destroyRef = inject(DestroyRef);
 
   updateDataUsingObservable() {
     of('initial').pipe(
@@ -20,12 +21,7 @@ export class DefaultChildComponent implements OnDestroy {
         this.primitiveData = 'Updated primitive data inside Observable';
         this.nonPrimitiveData.text = 'Updated non-primitive data inside Observable'
       }),
-      takeUntil(this.unsubscribe)
+      takeUntilDestroyed(this.destroyRef)
     ).subscribe()
-  }
-
-  ngOnDestroy() {
-    this.unsubscribe.next(null);
-    this.unsubscribe.complete();
   }
 }
